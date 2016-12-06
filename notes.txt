@@ -1,0 +1,19 @@
+STEP 1
+
+- Rozbalit zbrusu novy "keycloak-demo"
+
+- Github - checkout "step1" a otevrit v IDEA
+
+- Zbuildit webapp a deploynout na pripraveny demo
+
+
+STEP 2
+
+- Prepare KC:
+-- Create realm "jbug"
+-- Create client "authz-blog"
+-- Create realm role "user"
+-- Create user "john" - Don't yet assign him to anything
+-- Export keycloak.json and copy to apps
+-- Security-constraint in web.xml
+-- Add login link
