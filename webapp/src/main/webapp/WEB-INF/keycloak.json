@@ -6,5 +6,8 @@
   "use-resource-role-mappings": false,
   "credentials": {
     "secret": "98ad81e7-a48e-4019-ba37-d8e226928e87"
+  },
+  "policy-enforcer": {
+    "on-deny-redirect-to": "/webapp/deny.html"
   }
 }

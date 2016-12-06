@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.keycloak.AuthorizationContext;
+
 /**
  * @author <a href="mailto:mposolda@redhat.com">Marek Posolda</a>
  */
@@ -15,6 +17,13 @@ public class CreateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        AuthorizationContext authzContext = Utils.getAuthzContext(req);
+        if (!authzContext.hasPermission("blog", "create-blogpost")) {
+            resp.sendRedirect("/webapp/deny.html");
+            return;
+        }
+
+
         resp.setContentType("text/html");
         PrintWriter writer = resp.getWriter();
         writer.println("<html><head><title>Create blog</title></head><body>");
@@ -35,6 +44,12 @@ public class CreateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        AuthorizationContext authzContext = Utils.getAuthzContext(req);
+        if (!authzContext.hasPermission("blog", "create-blogpost")) {
+            resp.sendRedirect("/webapp/deny.html");
+            return;
+        }
+
         String text = req.getParameter("text");
         String sharedUser = req.getParameter("shared-user");
 

@@ -17,3 +17,20 @@ STEP 2
 -- Export keycloak.json and copy to apps
 -- Security-constraint in web.xml
 -- Add login link
+
+STEP 3
+
+- Create users "bill" and "tess", password "password" , Role "user"
+- Enable "authorization" and "Remote management"
+- Create scopes "create-blogpost" and "view-blogpost"
+- Create resource "blog" a dat k nemu scope "create-blogpost"
+- Policies "john-policy", "bill-policy", "tess-policy"
+- Permission pro scope "create-blogpost" dat k "john-policy"
+- Zkusit nejakou evaluation
+
+App:
+- pridat deny.html
+- na strane keycloak.json pridat policy-enforcer
+- Pridat Utils.getAuthzContext() a CreateServlet - enforcnout autorizaci
+
+
