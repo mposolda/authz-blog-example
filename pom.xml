@@ -8,6 +8,7 @@
 
   <modules>
     <module>webapp</module>
+    <module>auth-secure-question</module>
   </modules>
 
   <packaging>pom</packaging>
