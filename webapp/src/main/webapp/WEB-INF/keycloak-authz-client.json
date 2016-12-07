@@ -1,0 +1,8 @@
+{
+  "realm": "jbug",
+  "auth-server-url": "http://localhost:8080/auth",
+  "resource": "authz-blog",
+  "credentials": {
+    "secret": "98ad81e7-a48e-4019-ba37-d8e226928e87"
+  }
+}

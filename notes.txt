@@ -18,6 +18,7 @@ STEP 2
 -- Security-constraint in web.xml
 -- Add login link
 
+
 STEP 3
 
 - Create users "bill" and "tess", password "password" , Role "user"
@@ -33,4 +34,44 @@ App:
 - na strane keycloak.json pridat policy-enforcer
 - Pridat Utils.getAuthzContext() a CreateServlet - enforcnout autorizaci
 
+
+STEP 4
+
+- Create resource "blogpost:foo:bill" ,
+type: blogpost,
+uri: blogpost:foo:bar ,
+scopes: view-blogpost,
+
+- Create policy: view-blogpost-policy s timhle textem:
+
+{code}
+var context = $evaluation.getContext();
+var resource = $evaluation.getPermission().getResource();
+var resourceName = resource.getName();
+
+var identity = context.getIdentity();
+var attributes = identity.getAttributes();
+var username = attributes.getValue('preferred_username').asString(0);
+
+if (resourceName.endsWith(username)) {
+    $evaluation.grant();
+} else {
+    $evaluation.deny();
+}
+{code}
+
+- Create view-blogpost-permission
+-- AFFIRMATIVE
+-- Policies: john-policy, viewblogpost-policy,
+-- Scopes: view-blogpost
+-- Resources: any resource
+- Check v evaluation toolu, ze ma permission john a bill (pro resource "blogpost:foo:bill" )
+
+App:
+Pridat authzContext check ve ViewServletu u tech jednotlivych messages
+
+
+STEP 5:
+
+Zmeny jen na strane aplikace (use AuthzClient for dynamically create resources and checking them)
 

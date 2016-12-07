@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.keycloak.AuthorizationContext;
+import org.keycloak.authorization.client.AuthzClient;
 
 /**
  * @author <a href="mailto:mposolda@redhat.com">Marek Posolda</a>
@@ -58,7 +59,9 @@ public class CreateServlet extends HttpServlet {
         }
 
         Db db= Utils.getDb(getServletContext());
-        db.add(text, sharedUser);
+
+        AuthzClient authzClient = Utils.getAuthzClient(getServletContext());
+        db.add(text, sharedUser, authzClient);
 
         req.setAttribute("success", true);
 

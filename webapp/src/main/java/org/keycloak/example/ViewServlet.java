@@ -35,7 +35,7 @@ public class ViewServlet extends HttpServlet {
 
         Db db = Utils.getDb(getServletContext());
 
-        for (Db.Message message : db.getMessages(Utils.getAuthzContext(req))) {
+        for (Db.Message message : db.getMessages(Utils.getAuthzClient(req.getServletContext()), principal.getKeycloakSecurityContext().getTokenString())) {
             writer.println("<tr><td>" + message.getText() + "</td><td>" + message.getUsername() + "</td></tr>");
         }
 
